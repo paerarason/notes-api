@@ -17,8 +17,6 @@ type Message struct {
 
 func main(){
 	r:=gin.Default()
-
-
 	//endpoint 
 	r.GET("/ws", func(c *gin.Context){
 		header := make(http.Header)
