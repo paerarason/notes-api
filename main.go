@@ -16,9 +16,25 @@ type Message struct {
 }
 
 func main(){
-	r:=gin.Default()
+
+	   router := gin.Default()
+	   defer router.Run(":8080")
+
+		user:=router.Group("/user")
+		{
+			user.POST("/login")
+			user.GET("/users")
+			user.GET("/user/:id")
+		}
+
+		projects:=router.Group("/project")
+		{
+			projects.GET("/list")
+		}
+	
+	
 	//endpoint 
-	r.GET("/ws", func(c *gin.Context){
+	router.GET("/ws", func(c *gin.Context){
 		header := make(http.Header)
 		    conn, err := websocket.Upgrade(c.Writer, c.Request, header, 1024, 1024)
 			if err!=nil{
@@ -34,10 +50,8 @@ func main(){
 				}
 			}  
 			conn.Close()
-   })
-   r.Run(":8080")
+        })
 
-  
 }
 
 func handleMessage(conn *websocket.Conn) {

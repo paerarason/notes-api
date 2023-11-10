@@ -16,8 +16,6 @@ type Lists struct {
 }
 
 
-
-
 type Board  struct {
     lists Lists
 }
