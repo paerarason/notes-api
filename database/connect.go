@@ -2,14 +2,18 @@ package database
 
 import (
 	"context"
-    "go.mongodb.org/mongo-driver/bson/primitive"
+    "log"
+    "os"
     "go.mongodb.org/mongo-driver/mongo"
-    "go.mongodb.org/mongo-driver/mongo.options"
+    "go.mongodb.org/mongo-driver/mongo/options"
+    "github.com/joho/godotenv"
 )
-
-func Db_connect()  *options.client{
-    
-    clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+func Db_connect()  *mongo.Client{
+     err:=godotenv.Load(".env")
+     if err!=nil{
+        log.Fatal(err)
+     }
+    clientOptions := options.Client().ApplyURI(os.Getenv("mongo_url"))
     client, err := mongo.Connect(context.Background(), clientOptions)
     if err != nil {
         log.Fatal(err)
@@ -20,5 +24,5 @@ func Db_connect()  *options.client{
         log.Fatal(err)
     }
     
-	return &client 
+	return client 
 }
