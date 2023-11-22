@@ -5,27 +5,24 @@ import (
 )
 
 type User struct {
-    ID           uint       `gorm:primarykey`
-    Name         string
-    Email        *string
-    Age          uint8
-    Birthday     *time.Time
-    MemberNumber sql.NullString
-    ActivatedAt  sql.NullTime
-    CreatedAt    time.Time
-    UpdatedAt    time.Time
+    ID           uint       `gorm:primaryKey`
+    Name         string     `gorm:"serializer:json"`
+    Email        *string    `gorm:"serializer:json"`
+    Age          uint8      `gorm:"serializer:json"`
+    CreatedAt    time.Time  `gorm:"serializer:json"`
+    UpdatedAt    time.Time  `gorm:"serializer:json"`
   }
 
 type Lists struct {
-    task string 
-    priority int32
-    reviewer User
-    assignee  []User   
-}
+        task       string   `gorm:"serializer:json"`
+        priority   int32    `gorm:"serializer:json"`
+        reviewer   User     `gorm:"serializer:json"`
+        assignee   []User   `gorm:"serializer:json"`
+    }
 
 
 type Board  struct {
-    lists Lists
+    lists Lists       `gorm:"serializer:json"`
 }
 
 
