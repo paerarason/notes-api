@@ -2,10 +2,13 @@ package database
 
 import (
     "gorm.io/gorm"
+    "time"
 )
 
 type User struct {
-    ID           uint       `gorm:primaryKey`
+
+    gorm.Model
+    ID           uint       
     Name         string     `gorm:"serializer:json"`
     Email        *string    `gorm:"serializer:json"`
     Age          uint8      `gorm:"serializer:json"`
@@ -14,11 +17,13 @@ type User struct {
   }
 
 type Lists struct {
-        task       string   `gorm:"serializer:json"`
-        priority   int32    `gorm:"serializer:json"`
-        reviewer   User     `gorm:"serializer:json"`
-        assignee   []User   `gorm:"serializer:json"`
-    }
+
+    gorm.Model
+    task         string   `gorm:"serializer:json"`
+    priority     int32    `gorm:"serializer:json"`
+    reviewer     User     `gorm:"serializer:json"`
+    assignee     []User   `gorm:"foreignKey:serializer:json"`
+}
 
 
 type Board  struct {
