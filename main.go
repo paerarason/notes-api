@@ -7,6 +7,7 @@ import (
 	"log"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"github.com/paerarason/notes-api/database"
 	
 )
 
@@ -18,9 +19,13 @@ type Message struct {
 
 func main(){
 
-	   router := gin.Default()
-	   defer router.Run(":8080")
-
+	    router := gin.Default()
+	    defer router.Run(":8080")
+		//migrations
+		db:=database.SQL_Connect()
+        db.Automigrate(&Job,&Application,&users,&Role)
+		
+		//Routers 
 		user:=router.Group("/user")
 		{
 			user.POST("/login")
@@ -31,48 +36,7 @@ func main(){
 		projects:=router.Group("/project")
 		{
 			projects.GET("/list")
-		}
 	
+        }
+}
 	
-	//endpoint 
-	router.GET("/ws", func(c *gin.Context){
-		header := make(http.Header)
-		    conn, err := websocket.Upgrade(c.Writer, c.Request, header, 1024, 1024)
-			if err!=nil{
-				log.Fatal(err)
-			}
-			
-			go handleMessage(conn)
-			for {
-				_,_ ,err:=conn.ReadMessage()
-				if err!=nil {
-					log.Println(err)
-					break
-				}
-			}  
-			conn.Close()
-        })
-
-}
-
-func handleMessage(conn *websocket.Conn) {
-    for {
-        // Read the incoming message
-        _, message, err := conn.ReadMessage()
-        if err != nil {
-            log.Println(err)
-            break
-        }
-
-        // Unmarshal the JSON message
-        var msg Message
-        err = json.Unmarshal(message, &msg)
-        if err != nil {
-            log.Println(err)
-            continue
-        }
-
-        // Broadcast the message to all connected clients
-        fmt.Println(msg.Sender, msg.Content)
-    }
-}

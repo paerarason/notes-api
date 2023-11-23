@@ -1,20 +1,20 @@
 package database
-
 import (
 	"context"
     "log"
     "os"
-    "go.mongodb.org/mongo-driver/mongo"
-    "go.mongodb.org/mongo-driver/mongo/options"
-    "github.com/joho/godotenv"
+    "gorm.io/gorm"
+    "gorm.io/driver/postgres"
 )
 
-func SQL_Connect(){
-    
-    
-
+func SQL_Connect() (*gorm.DB){
+    dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
+    db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+    if err!=nil{
+        log.Fatal(err)
+    }
+    return db 
 }
-
 
 // func Db_connect()  *mongo.Client{
 //      err:=godotenv.Load(".env")
