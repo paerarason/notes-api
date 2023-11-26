@@ -4,12 +4,7 @@ go 1.21.3
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/gorilla/websocket v1.5.1
 	github.com/joho/godotenv v1.5.1
-	go.mongodb.org/mongo-driver v1.13.0
-)
-
-require (
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect

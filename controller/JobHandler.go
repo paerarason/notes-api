@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/paerarason/notes-api/models"
+	//"github.com/paerarason/notes-api/models"
     "github.com/go-playground/validator/v10"
 
 )

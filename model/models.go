@@ -1,4 +1,4 @@
-package models
+package model
 
 type user_role struct  {
     id int 

@@ -1,41 +1,26 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"net/http"
-	"log"
 	"github.com/gin-gonic/gin"
+	"github.com/paerarason/notes-api/model"
+	"github.com/paerarason/notes-api/api"
 	"github.com/paerarason/notes-api/database"
+	"github.com/paerarason/notes-api/middleware"
 	
 )
 
 
-type Message struct {
-	Sender string `json:"sender"`
-	Content string `json:"content"`
-}
-
 func main(){
-
 	    router := gin.Default()
+		router.Use(middleware.JWTAuthentication())
 	    defer router.Run(":8080")
 		//migrations
 		db:=database.SQL_Connect()
-        db.Automigrate(&Job,&Application,&users,&Role)
-		
-		//Routers 
-		user:=router.Group("/user")
-		{
-			user.POST("/login")
-			user.GET("/users")
-			user.GET("/user/:id")
-		}
-
-		projects:=router.Group("/project")
-		{
-			projects.GET("/list")
-	
-        }
+        db.AutoMigrate(&model.Job{},&model.Application{},&model.User{},&model.Role{})
+		api.ApplicationRouter(router)
+		api.CompanyRouter(router)
+		api.JobRouter(router)
+		api.ReviewRouter(router)
+		api.UserRouter(router)
 }
 	
