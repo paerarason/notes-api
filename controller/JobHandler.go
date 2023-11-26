@@ -11,18 +11,12 @@ import (
 func CreateJob_Handler() gin.HandlerFunc{
 	   return func (c *gin.Context){
 		db:=database.SQL_Connect()
-		//validate the Given Values with struct
-		type body struct{
-            title string   
-			experience_in_months  int   
-			description string                   
-			comapany_id  int     		
-		}
 		
+		//validate the Given Values with struct
 		if err := c.ShouldBindHeader(&body{}); err != nil {
             c.AbortWithStatus(400)
             return
-        }
+		}
 
 		validate := validator.New()
         err := validate.Struct(&body{})
@@ -39,6 +33,7 @@ func CreateJob_Handler() gin.HandlerFunc{
 //
 func ReadJob_Handler() gin.HandlerFunc{
     
+
    return func (c *gin.Context){
 
    }
@@ -48,6 +43,7 @@ func ReadJob_Handler() gin.HandlerFunc{
 //
 func UpdateJob_Handler() gin.HandlerFunc{
 
+	
 	return func (c *gin.Context){
 
 	}

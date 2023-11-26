@@ -2,26 +2,29 @@ package models
 import (
     "gorm.io/gorm"
     "time"
+    "encoding/json"
 )
 
 
 type Job struct{
-    id  int  [primary key ]
-    title string                `validate:required`
-    experience_in_months  int   `validate:required`
-    description string          `validate:required`
-    created_at time
-    expires_at time      
+    id  int
+    title string                 `json:"username"`
+    experience_in_months  int   `json:"username"`
+    description string         `json:"username"`
+    created_at  time
+    expires_at  time      
     posted_user int           
     comapany_id  int     `validate:required`
   }
-  
+
+
+
 
 type User struct  {
     id int
-    username string   `validate:required`
-    email string      `validate:required`
-    password string   `validate:required`
+    username string   `json:"username"`
+    email string      `json:"email"`
+    password string   `json:"password"`
     created_at time   
   }
   

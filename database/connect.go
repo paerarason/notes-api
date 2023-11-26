@@ -14,21 +14,3 @@ func SQL_Connect() (*gorm.DB){
     return db 
 }
 
-// func Db_connect()  *mongo.Client{
-//      err:=godotenv.Load(".env")
-//      if err!=nil{
-//         log.Fatal(err)
-//      }
-//     clientOptions := options.Client().ApplyURI(os.Getenv("mongo_url"))
-//     client, err := mongo.Connect(context.Background(), clientOptions)
-//     if err != nil {
-//         log.Fatal(err)
-//     }
-
-//     err = client.Ping(context.Background(), nil)
-//     if err != nil {
-//         log.Fatal(err)
-//     }
-    
-// 	return client 
-// }
