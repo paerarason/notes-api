@@ -4,9 +4,6 @@ import (
 	"fmt"
 )
 
-
-
-
 func JWTAuthentication(){
      
 }

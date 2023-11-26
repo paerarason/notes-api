@@ -1,4 +1,5 @@
 package api
+
 import(
 	"net/http"
 	"github.com/gin-gonic/gin"
@@ -19,13 +20,11 @@ func UserCreateHandler() gin.HandlerFunc{
         return
     }
 
-
 	return
-	 }
 	 user:=models.User{username:body.username,email:body.email,password:body.password,created_at:time.Now()}
 	 return db.Create(&user) 
 }
-
+}
 
 func UserGETHandler() gin.HandlerFunc{
 	return func (c *gin.Context){
