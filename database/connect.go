@@ -1,16 +1,17 @@
 package database
 import (
     "log"
-    "gorm.io/gorm"
-    "gorm.io/driver/postgres"
+    "database/sql"
 )
 
-func SQL_Connect() (*gorm.DB){
-    dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
-    db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+func SQL_Connect() *sql.DB{
+    dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable"
+    db, err :=sql.Open("postgres",dsn)
     if err!=nil{
         log.Fatal(err)
-    }
+    } 
+    db.SetMaxOpenConns(10)
+    db.SetMaxIdleConns(5)
     return db 
 }
 
