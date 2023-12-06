@@ -59,19 +59,13 @@ func GenerateToken() gin.HandlerFunc {
 	var hash string 
 	var  accountID int
 	Query:=`SELECT password,ID FROM account WHERE account.username=$1` 
-    err=db.QueryRow(Query,username).Scan(&hash,&accountID)
+    
+	err=db.QueryRow(Query,username).Scan(&hash,&accountID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "unable to get Account details"})
 		return
 	}
     
-	//Error handle for password Comaparison
-
-	if !CheckPasswordHash(password,hash){
-        c.JSON(http.StatusInternalServerError, gin.H{"error": "Password Doesn't match"})
-		return
-	}
-	
 	expirationTime := time.Now().Add(20 * time.Minute)
 	claims := jwt.MapClaims{
         "account_id": accountID,
